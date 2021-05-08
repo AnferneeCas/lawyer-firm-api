@@ -46,8 +46,11 @@ class AuthController extends ApiController{
     }
 
     public function register(Request $request){
-        error_log('test');
-        // $request->validate(['test'=>'required']);
+        $validated=  $request->validate(['email'=>'required',
+        'first_name'=>'required',
+        'last_name'=>'required',
+        'email'=>'required',
+        'password'=>'required']);
         
         $user = new User([
             'name' => trim($request->input('first_name') . " " . $request->input('last_name')),
@@ -57,6 +60,6 @@ class AuthController extends ApiController{
             'password' => bcrypt($request->input('password')),
         ]);
         $user->save();
-        $this->respondCreatedWithData($user);
+        return $this->respondCreatedWithData('test',$user);
     }
 }
