@@ -1,7 +1,12 @@
 <?php
 
+use App\Http\Controllers\API\AuthController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +19,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/register',[AuthController::class,'register']);
+Route::post('/authenticate',[AuthController::class,'authenticate']);
+Route::group(['middleware'=>'jwt.auth'],function(){
+    Route::group('/clients',function(){
+        Route::post("/")
+    });
+    Route::get('/testing',function(){
+        return 'testing';
+    });
+});
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
