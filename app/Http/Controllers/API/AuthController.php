@@ -50,7 +50,8 @@ class AuthController extends ApiController{
         'first_name'=>'required',
         'last_name'=>'required',
         'email'=>'required',
-        'password'=>'required']);
+        'password'=>'required',
+        'firm_id'=>'required']);
         
         $user = new User([
             'name' => trim($request->input('first_name') . " " . $request->input('last_name')),
@@ -58,8 +59,10 @@ class AuthController extends ApiController{
             'last_name' => $request->input('last_name'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
+            'firm_id'=>$request->firm_id
         ]);
         $user->save();
         return $this->respondCreatedWithData('test',$user);
+        // TODO change responde message
     }
 }

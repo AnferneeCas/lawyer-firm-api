@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AccountsController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ClientsController;
 use Illuminate\Http\Request;
@@ -25,6 +26,9 @@ Route::post('/authenticate',[AuthController::class,'authenticate']);
 Route::group(['middleware'=>'jwt.auth'],function(){
     Route::prefix('clients')->group(function () {
         Route::post('/', [ClientsController::class,'create']);
+    });
+    Route::prefix('accounts')->group(function () {
+        Route::post('/', [AccountsController::class,'create']);
     });
 });
 Route::middleware('auth:api')->get('/user', function (Request $request) {
