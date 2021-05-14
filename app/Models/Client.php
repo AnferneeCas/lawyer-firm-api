@@ -21,4 +21,8 @@ class Client extends Model
         }
         return $accounts;
     }
+
+    public function demands(){
+      return Demand::whereHas('accounts',function ($q){$q->whereHas('client',function ($q2){$q2->where('id',$this->id);});})->get();
+    }
 }

@@ -18,4 +18,8 @@ class Account extends Model
     public function accountable(){
         return $this->morphTo();
     }
+
+    public function demand(){
+      return $this->belongsTo('App\Models\Demand');
+    }
 }

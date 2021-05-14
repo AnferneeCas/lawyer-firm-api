@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\AccountsController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ClientsController;
+use App\Http\Controllers\API\DemandsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,9 @@ Route::group(['middleware'=>'jwt.auth'],function(){
     });
     Route::prefix('accounts')->group(function () {
         Route::post('/', [AccountsController::class,'create']);
+    });
+    Route::prefix('demands')->group(function () {
+        Route::post('/', [DemandsController::class,'create']);
     });
 });
 Route::middleware('auth:api')->get('/user', function (Request $request) {
