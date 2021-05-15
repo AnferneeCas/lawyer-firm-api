@@ -40,9 +40,6 @@ class InteractionsController extends ApiController
         $interaction = InteractionsService::createInteraction($request->account_id,$request);
 
         return $this->respondCreatedWithData('New interaction created',$this->transformer->transform($interaction));
-
-
-        // TODO create interaction service and endpoints
         
     }
 }
