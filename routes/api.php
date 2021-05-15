@@ -5,6 +5,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ClientsController;
 use App\Http\Controllers\API\DemandsController;
 use App\Http\Controllers\API\InteractionsController;
+use App\Http\Controllers\API\PaymentPromisesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,9 @@ Route::group(['middleware'=>'jwt.auth'],function(){
     });
     Route::prefix('interactions')->group(function () {
         Route::post('/', [InteractionsController::class,'create']);
+    });
+    Route::prefix('payment-promise')->group(function () {
+        Route::post('/', [PaymentPromisesController::class,'create']);
     });
 });
 Route::middleware('auth:api')->get('/user', function (Request $request) {
