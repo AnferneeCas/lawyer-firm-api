@@ -22,4 +22,7 @@ class Account extends Model
     public function demand(){
       return $this->belongsTo('App\Models\Demand');
     }
+    public function interactions(){
+      return $this->hasMany('App\Models\Interaction');
+    }
 }
