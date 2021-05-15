@@ -4,6 +4,7 @@ use App\Http\Controllers\API\AccountsController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ClientsController;
 use App\Http\Controllers\API\DemandsController;
+use App\Http\Controllers\API\FileUploadController;
 use App\Http\Controllers\API\InteractionsController;
 use App\Http\Controllers\API\PaymentPromisesController;
 use Illuminate\Http\Request;
@@ -42,6 +43,8 @@ Route::group(['middleware'=>'jwt.auth'],function(){
     Route::prefix('payment-promise')->group(function () {
         Route::post('/', [PaymentPromisesController::class,'create']);
     });
+
+    Route::post('/upload-file',[FileUploadController::class,'masterDocumentUpload']);
 });
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
