@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\API\ApiController;
 use App\Http\Controllers\API\Transformers\ClientTransformer;
 use App\Models\Client;
+use App\Services\ClientsService;
 use Illuminate\Http\Request;
 
 class ClientsController extends ApiController
@@ -34,19 +35,7 @@ class ClientsController extends ApiController
             'firm_id'=>'required'
         ]);
         
-        $client = new Client();
-        $client->name = $request->name;
-        $client->email = $request->email;
-        $client->social_id = $request->social_id;
-        $client->ui=$request->ui;
-        $client->work_address ='asdfads'.$request->work_address;
-        $client->home_address = $request->home_address;
-        $client->contact_number = $request->contact_number;
-        $client->firm_id = $request->firm_id;
-        $client->user_id = $this->getCurrentUser()->id;
-        $client->save();
-
-
+        $client = ClientsService::create($request);
         return $this->respondCreatedWithData('',$this->transformer->transform($client));
     }
 }

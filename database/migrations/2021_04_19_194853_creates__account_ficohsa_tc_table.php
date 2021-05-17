@@ -21,7 +21,7 @@ class CreatesAccountFicohsaTcTable extends Migration
             $table->double('balance');
             $table->double('balance_usd');
             $table->date('assign_date');
-            $table->date('separation_date');
+            $table->date('separation_date')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

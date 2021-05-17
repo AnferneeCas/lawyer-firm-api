@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\API\ApiController;
 use App\Models\File;
+use App\Services\DocumentProcessingService;
 use App\Services\InteractionsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,11 +41,12 @@ class FileUploadController extends ApiController
             $newFile->purpose = $request->purpose;
             $newFile->original_name =$originalName;
             $newFile->save();
-
-            return $this->respondWithSuccess("New file saved: ".$newFile->name);
+            $result=  DocumentProcessingService::processMasterDocument($newFile->name);
+            return $this->respondWithSuccess("New file saved: ".$newFile->name."  path: {$newFile->path}");
         }
 
         return $this->respondBadRequest();
         
     }
+
 }

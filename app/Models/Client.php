@@ -14,6 +14,10 @@ class Client extends Model
         return $this->hasMany('App\Models\Account');
       }
 
+    public function user(){
+      return $this->belongsTo('App\Models\User');
+    }
+
     public function test(){
         $accounts= array();
         foreach ( $this->accounts as $account) {

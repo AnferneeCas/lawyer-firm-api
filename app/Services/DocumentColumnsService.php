@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Services;
+
+
+class DocumentColumnsService
+{
+    const NUMERO_CLIENTE_COLUMN=4;
+    const NUMERO_VASA_COLUMN=5;
+    const NOMBRE_COLUMN=6;
+    const IDENTIDAD_COLUMN =7;
+    const SALDO_COLUMN = 8;
+    const ESTADO_COLUMN = 11;
+    const FECHA_ASIGNACION_COLUMN = 12;
+    const PRODUCTO_COLUMN = 13;
+    const SEGMENTACION_COLUMN =14;
+    const TIPO_PRODUCTO_COLUMN = 15;
+    const FECHA_SEPARACION_COLUMN = 16;
+    const TRABAJO_COLUMN=20;
+    const CORREO_COLUMN= 24;
+    const CELULAR_COLUMN = 26;
+    const CARACTERIZACION_COLUMN = 30;
+    const CODIGO_COLUMN = 31;
+    // PAYMENT PROMISE
+    const VALOR_PROMESA_COLUMN = 34 ;
+    const FECHA_PROMESA_COLUMN = 35;
+    // DEMAND
+    const FECHA_SOLICITUD_DOCUMENTO_COLUMN = 36;
+    const FECHA_RECIBIDO_DOCUMENTO_COLUMN = 37;
+    const FECHA_PRESENTACION_DEMANDA_COLUMN= 38;
+    const TIPO_DEMANDA_COLUMN=39;
+    const CANTIDAD_RETENIDA_COLUMN =42;
+    const APARTIR_DE_COLUMN = 43;
+    const JUZGADO_COLUMN = 44;
+    const EXPEDIENTE_COLUMN = 45;
+    const JUEZ_COLUMN =46;
+    CONST CIUDAD_DEMANDA_COLUMN = 47;
+
+
+}

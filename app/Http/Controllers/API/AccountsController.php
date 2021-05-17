@@ -5,10 +5,13 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\API\Transformers\AccountTransformer;
 use App\Models\Account;
 use App\Models\Accounts\Ficohsa\AccountFicohsaTc;
+use App\Services\AccountsService;
+use App\Services\AccountTypeDictionary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PDO;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class AccountsController extends ApiController
 {
@@ -34,7 +37,7 @@ class AccountsController extends ApiController
         $user =$this->getCurrentUser();
         $client = $user->clients()->find($request->client_id);
         if($client){
-            return $this->createAccountByAccountableType($request->account_type,$request);            
+            return  $this->respondCreatedWithData('Account created succesfully', $this->transformer->transform(AccountsService::create($request->account_type,$request))) ;          
         }else{
             $this->respondNotFound('Client id not found');
         }
@@ -43,7 +46,7 @@ class AccountsController extends ApiController
     private function getValidatorByAccountType($accountableType){
         // TODO check how to use validate function outside of a request model
         $validations = 
-        ['account_type'=>'required|in:FICOHSA_TC',
+        ['account_type'=>['required',Rule::in([AccountTypeDictionary::FICOHSA_TARJETA_CREDITO,AccountTypeDictionary::FICOHSA_PRESTAMO])],
         'client_id'=>'required'];
         switch ($accountableType) {
             case Account::FICOHSA_TC:
@@ -62,44 +65,7 @@ class AccountsController extends ApiController
 
     }
 
-    private function createAccountByAccountableType($accountableType,$request){
-        switch ($accountableType) {
-            case Account::FICOHSA_TC:
-                return $this->createFicohsaTcAccount($request);
-                # code...
-                break;
-            
-            default:
-                # code...
-                break;
-        }
-    }
-
-    private function createFicohsaTcAccount($request){
-        $user = Auth::user();
-        $ficohsaTc = new AccountFicohsaTc();
-
-        $ficohsaTc->status = $request->status;
-        $ficohsaTc->ui = $request->ui;
-        $ficohsaTc->balance = $request->balance;
-        $ficohsaTc->balance_usd = $request->balance / 25;
-        $ficohsaTc->assign_date = $request->assign_date;
-        $ficohsaTc->separation_date = $request->separation_date;
-
-        $account = new Account();
-        $account->client_id = $request->client_id;
-        $account->accountable_type = AccountFicohsaTc::class;
-        $account->firm_id = $user->firm_id;
-
-        return DB::transaction(function  () use ($account,$ficohsaTc) {
-            
-            $ficohsaTc->save();
-            $account->accountable_id = $ficohsaTc->id;
-            $account->save();          
-            return $this->transformer->transform($account);         
-        });
-
-    }
+ 
     private function getAccountableClass($accountableType){
         switch ($accountableType) {
             case 'value':

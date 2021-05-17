@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatesClientsTable extends Migration
+class CreatesAccountFicohsaPtmoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,15 +14,14 @@ class CreatesClientsTable extends Migration
     public function up()
     {
         //
-        Schema::create('clients', function (Blueprint $table) {
+        Schema::create('account_ficohsa_ptmo', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string('name');
-            $table->string('email')->nullable();
-            $table->string('social_id');
             $table->string('ui');
-            $table->string('work_address')->nullable();
-            $table->string('home_address')->nullable();
-            $table->string('contact_number')->nullable();
+            $table->string('status');
+            $table->double('balance');
+            $table->double('balance_usd');
+            $table->date('assign_date');
+            $table->date('separation_date')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -36,8 +35,5 @@ class CreatesClientsTable extends Migration
     public function down()
     {
         //
-        Schema::table('Clients',function(Blueprint $table){
-            $table->drop();
-        });
     }
 }
