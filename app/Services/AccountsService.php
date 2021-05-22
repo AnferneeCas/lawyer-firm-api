@@ -45,6 +45,12 @@ class AccountsService
         $ficohsaTc->balance_usd = $request->balance / 25;
         $ficohsaTc->assign_date = $request->assign_date;
         $ficohsaTc->separation_date = $request->separation_date;
+        $ficohsaTc->administration = $request->administration;
+        $ficohsaTc->product = $request->product;
+        $ficohsaTc->segmentation = $request->segmentation;
+        $ficohsaTc->product_type = $request->product_type;
+        $ficohsaTc->wallet =$request->wallet;
+
         $account = new Account();
         $account->client_id = $request->client_id;
         $account->accountable_type = AccountFicohsaTc::class;
@@ -54,8 +60,7 @@ class AccountsService
             
             $ficohsaTc->save();
             $account->accountable_id = $ficohsaTc->id;
-            $account->save();
-            error_log("CUENTA {$account->ui} created");          
+            $account->save();          
             return $account;         
         });
 
@@ -63,25 +68,29 @@ class AccountsService
 
     private static function createFicohsaPtmoAccount($request){
         $user = Auth::user();
-        $ficohsaTc = new AccountFicohsaPtmo();
+        $ficohsaPtmo = new AccountFicohsaPtmo();
 
-        $ficohsaTc->status = $request->status;
-        $ficohsaTc->ui = $request->ui;
-        $ficohsaTc->balance = $request->balance;
-        $ficohsaTc->balance_usd = $request->balance / 25;
-        $ficohsaTc->assign_date = $request->assign_date;
-        $ficohsaTc->separation_date = $request->separation_date;
+        $ficohsaPtmo->status = $request->status;
+        $ficohsaPtmo->ui = $request->ui;
+        $ficohsaPtmo->balance = $request->balance;
+        $ficohsaPtmo->assign_date = $request->assign_date;
+        $ficohsaPtmo->separation_date = $request->separation_date;
+        $ficohsaPtmo->administration = $request->administration;
+        $ficohsaPtmo->product = $request->product;
+        $ficohsaPtmo->segmentation = $request->segmentation;
+        $ficohsaPtmo->product_type = $request->product_type;
+        $ficohsaPtmo->wallet =$request->wallet;
+
         $account = new Account();
         $account->client_id = $request->client_id;
         $account->accountable_type = AccountFicohsaPtmo::class;
         $account->firm_id = $user->firm_id;
 
-        return DB::transaction(function  () use ($account,$ficohsaTc) {
+        return DB::transaction(function  () use ($account,$ficohsaPtmo) {
             
-            $ficohsaTc->save();
-            $account->accountable_id = $ficohsaTc->id;
-            $account->save();
-            error_log("CUENTA {$account->ui} created");          
+            $ficohsaPtmo->save();
+            $account->accountable_id = $ficohsaPtmo->id;
+            $account->save();         
             return $account;         
         });
 

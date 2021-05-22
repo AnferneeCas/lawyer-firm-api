@@ -29,4 +29,22 @@ class Client extends Model
     public function demands(){
       return Demand::whereHas('accounts',function ($q){$q->whereHas('client',function ($q2){$q2->where('id',$this->id);});})->get();
     }
+
+    public function externalDbSearchs(){
+      return $this->hasMany('App\Models\ExternalDbSearch');
+    }
+
+    public function assets(){
+      return $this->hasMany('App\Models\Asset');
+    }
+
+    public function makeDocumentAssetsLog(){
+      $assets = $this->assets;
+      $result = "";
+      foreach ($assets as $asset ) {
+        $result .= "      ".$asset->makeMasterLog();
+      }
+      return $result;
+    }
+
 }

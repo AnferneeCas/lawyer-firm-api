@@ -45,6 +45,7 @@ Route::group(['middleware'=>'jwt.auth'],function(){
     });
 
     Route::post('/upload-file',[FileUploadController::class,'masterDocumentUpload']);
+    Route::post('/download-master',[FileUploadController::class,'downloadMasterDocument']);
 });
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

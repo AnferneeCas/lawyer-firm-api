@@ -16,4 +16,5 @@ class AccountFicohsaPtmo extends Model
       {
         return $this->morphOne('App\Models\Account', 'accountable');
       }
+
 }

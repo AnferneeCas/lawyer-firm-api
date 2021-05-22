@@ -26,7 +26,6 @@ class ClientsService
         $client->firm_id = $user->firm_id;
         $client->user_id = $user->id;
         $client->save();
-        error_log("CLIENTE  {$client->name}  {$client->ui} created");
         return $client;
     }
 

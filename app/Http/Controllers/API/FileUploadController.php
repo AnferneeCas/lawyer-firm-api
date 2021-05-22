@@ -49,4 +49,9 @@ class FileUploadController extends ApiController
         
     }
 
+    public function downloadMasterDocument(Request $request){
+        return DocumentProcessingService::generateMasterDocument(1);
+        // return "done";
+    }
+
 }

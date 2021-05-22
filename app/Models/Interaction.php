@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Interaction extends Model
 {
-
+    public function characterization(){
+        return $this->belongsTo('App\Models\Characterization');
+    }
 }
