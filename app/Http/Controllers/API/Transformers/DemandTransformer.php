@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Transformers;
 class DemandTransformer extends Transformer {
 
     public function transform($demand) {
+        error_log(json_encode($demand));
         $response = array();
         $response =array_merge($response,$demand->toArray());
         $accounts = $demand->accounts;

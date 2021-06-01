@@ -27,6 +27,11 @@ class InteractionsService
         return $interaction;
     }
 
+    public static function getInteractionById($interaction_id){
+        $interaction = Interaction::find($interaction_id);
+        return $interaction;
+    }
+
     public static function breakDownInteraction($interaction,$account_id){
         $length = strlen($interaction);
         $maxLength = 499;

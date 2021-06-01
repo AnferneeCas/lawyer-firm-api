@@ -17,7 +17,8 @@ class DemandsService
         $demand->amount = $data->amount;
         $demand->court_id = $data->court_id;
         $demand->judge_id = $data->judge_id;
-        
+        $demand->started_at = $data->started_at;
+        $demand->type = $data->type;
         $account = Account::find($account_id);
         return DB::transaction(function  () use ($account,$demand) {
             $demand->save();

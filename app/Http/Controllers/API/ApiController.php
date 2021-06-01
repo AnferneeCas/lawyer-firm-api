@@ -15,6 +15,7 @@ class ApiController extends Controller
 	protected $maxLimit = 50;
 	protected $defaultLimit = 10;
 
+
 	/**
 	 * @return mixed
 	 */

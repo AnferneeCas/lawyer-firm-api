@@ -4,12 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Account extends Model
 {
-    const FICOHSA_TC= 'FICOHSA_TC'; 
+   use SoftDeletes;
     use HasFactory;
     protected $hidden = ['accountable','accountable_type','accountable_id'];
+    protected $appends = ['data','last_interaction'];
+
     public function client()
     {
       return $this->belongsTo('App\Models\Client');
@@ -54,5 +57,13 @@ class Account extends Model
 
     public function documentRequest(){
       return $this->hasOne('App\Models\DocumentRequest');
+    }
+
+    public function getDataAttribute(){
+      return $this->accountable;
+    }
+
+    public function getLastInteractionAttribute(){
+      return $this->lastGeneralInteraction();
     }
 }

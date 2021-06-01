@@ -23,6 +23,7 @@ class ClientsService
         $client->work_address =$data->work_address;
         $client->home_address = $data->home_address;
         $client->contact_number = $data->contact_number;
+        $client->company_type = $data->company_type;
         $client->firm_id = $user->firm_id;
         $client->user_id = $user->id;
         $client->save();
@@ -30,5 +31,35 @@ class ClientsService
     }
 
 
+    public static function update($client,$data){
+        if(!($client instanceof Client)){
+            $client = Client::find($client);
+        }   
+        $client->name = $data->name;
+        $client->email = $data->email;
+        $client->social_id = $data->social_id;
+        $client->ui=$data->ui;
+        $client->work_address =$data->work_address;
+        $client->home_address = $data->home_address;
+        $client->contact_number = $data->contact_number;
+        $client->company_type = $data->company_type;
+        $client->save();
+        return $client;
+    }
+
+    public static function delete($client){
+        if(!($client instanceof Client)){
+            $client = Client::find($client);
+        }  
+       return DB::transaction(function  () use ($client) {
+            $accounts = $client->accounts;
+            foreach ($accounts as $account) {
+                AccountsService::delete($account);
+            }
+            $client->delete();
+            return $client;
+        }); 
+        
+    }
 
 }
